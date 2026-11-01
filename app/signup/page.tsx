@@ -2,15 +2,13 @@
 
 import { FormEvent } from 'react';
 
-import { useRouter } from 'next/navigation'
+import { redirect } from 'next/navigation'
 
 import { Button, Input , Label} from '@heroui/react';
 
 import { authClient } from '@/lib/auth-client';
 
-export default function Page() {
-    const router = useRouter();
-    
+export default function Page() {    
     const { 
         data: session, 
         isPending, //loading state
@@ -19,7 +17,7 @@ export default function Page() {
     } = authClient.useSession();
     
     if (session && !isPending) {
-        router.replace("/");
+        redirect("/dashboard");
     };
 
     async function handleSignIn(e: FormEvent<HTMLFormElement>) {

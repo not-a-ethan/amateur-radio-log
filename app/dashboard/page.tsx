@@ -1,6 +1,6 @@
 "use client";
 
-import { useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 
 import { useState } from "react";
 
@@ -10,8 +10,6 @@ import { authClient } from "@/lib/auth-client";
 import { ContactRow } from "./components/contactRow";
 
 export default function Page() {
-    const router = useRouter();
-
     const {
         data: session,
         isPending,
@@ -20,7 +18,7 @@ export default function Page() {
     } = authClient.useSession();
 
     if (!session && !isPending) {
-    router.replace("/signin");
+        redirect("/signin");
     };
 
     const [numContacts, setNumContacts] = useState(0);
