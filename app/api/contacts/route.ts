@@ -170,6 +170,189 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     );
 };
 
+export async function PUT(req: NextRequest): Promise<NextResponse> {
+    const session = await auth.api.getSession({headers: await headers()});
+
+    if (!session) {
+        return NextResponse.json(
+            {
+                "error": "Not authenticated"
+            },
+            { status: 403 }
+        );
+    };
+
+    const userId: string = session["session"]["userId"];
+
+    const body = await req.json();
+    const contactId: number|undefined|null = body["contactId"];
+    const start: number|undefined|null = body["start"];
+    const end: number|undefined|null = body["end"];
+    const callSign: string|undefined|null = body["callSign"];
+    const freq: number|undefined|null = body["freq"];
+    const mode: string|undefined|null = body["mode"];
+    const power: number|undefined|null = body["power"];
+    const country: string|undefined|null = body["country"];
+    const comments: string|undefined|null = body["comments"];
+
+    if (!contactId || Number.isNaN(contactId) || contactId <= 0) {
+        return NextResponse.json(
+            {
+                "error": "That is not a valid contact id"
+            },
+            { status: 400 }
+        );
+    };
+
+    let contactInfo;
+    
+    try {
+        contactInfo = await sql`SELECT * FROM contacts WHERE id=${contactId} AND userid=${userId};`;
+    } catch (e) {
+        console.error(e);
+
+        return NextResponse.json(
+            {
+                "error": "Something went wrong getting contact info"
+            },
+            { status: 500 }
+        );
+    };
+
+    if (!contactInfo || contactInfo.length === 0) {
+        return NextResponse.json(
+            {
+                "error": "That contact does not exist or it is not yours"
+            },
+            { status: 404 }
+        );
+    };
+    
+    // Changes each value on at a time
+    if (start && !Number.isNaN(start) && start > 0) {
+        try {
+            await sql`UPDATE contacts SET startdate=${start} WHERE userid=${userId} AND id=${contactId};`;
+        } catch (e) {
+            console.error(e);
+
+            return NextResponse.json(
+                {
+                    "error": "Something went wrong changing start date"
+                },
+                { status: 500 }
+            );
+        };
+    };
+
+    if (end && !Number.isNaN(end) && end > 0) {
+        try {
+            await sql`UPDATE contacts SET enddate=${end} WHERE userid=${userId} AND id=${contactId};`;
+        } catch (e) {
+            return NextResponse.json(
+                {
+                    "error": "Something went wrong updating end date"
+                },
+                { status: 500 }
+            );
+        };
+    };
+
+    if (callSign && callSign.trim().length !== 0) {
+        try {
+            await sql`UPDATE contacts SET callsign=${callSign} WHERE userid=${userId} AND id=${contactId};`;
+        } catch (e) {
+            console.error(e);
+
+            return NextResponse.json(
+                {
+                    "error": "Something went wrong updating the callsign"
+                },
+                { status: 500 }
+            );
+        };
+    };
+
+    if (freq && !Number.isNaN(freq) && freq > 0) {
+        try {
+            await sql`UPDATE contacts SET freq=${freq} WHERE userid=${userId} AND id=${contactId};`;
+        } catch (e) {
+            console.error(e);
+
+            return NextResponse.json(
+                {
+                    "error": "Somethign went wrong updating frequncy"
+                },
+                { status: 500 }
+            );
+        };
+    };
+
+    if (mode && mode.trim().length !== 0) {
+        try {
+            await sql`UPDATE contacts SET mode=${mode} WHERE userid=${userId} AND id=${contactId};`;
+        } catch (e) {
+            console.error(e);
+
+            return NextResponse.json(
+                {
+                    "error": "Something went wrong updating mode"
+                },
+                { status: 500 }
+            );
+        };
+    };
+
+    if (power && !Number.isNaN(power) && power > 0) {
+        try {
+            await sql`UPDATE contacts SET power=${power} WHERE userid=${userId} AND id=${contactId};`;
+        } catch (e) {
+            console.error(e);
+
+            return NextResponse.json(
+                {
+                    "error": "Something went wront changing power"
+                },
+                { status: 500 }
+            );
+        };
+    };
+
+    if (country && country.trim().length !== 0) {
+        try {
+            await sql`UPDATE contacts SET country=${country} WHERE userid=${userId} AND id=${contactId};`;
+        } catch (e) {
+            console.error(e);
+
+            return NextResponse.json(
+                {
+                    "error": "Something went wrong updating the country"
+                },
+                { status: 500 }
+            );
+        };
+    };
+
+    if (comments) {
+        try {
+            await sql`UPDATE contacts SET comments=${comments} WHERE userid=${userId} AND id=${contactId};`;
+        } catch (e) {
+            console.error(e);
+
+            return NextResponse.json(
+                {
+                    "error": "Something went wrong updating comment"
+                },
+                { status: 500 }
+            );
+        };
+    };
+
+    return NextResponse.json(
+        {},
+        { status: 200 }
+    );
+};
+
 export async function DELETE(req: NextRequest): Promise<NextResponse> {
     const session = await auth.api.getSession({headers: await headers()});
 

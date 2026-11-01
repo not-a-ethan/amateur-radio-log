@@ -29,9 +29,6 @@ export default function Page() {
         const username: string = formInputs["username"].toString();
         const password: string = formInputs["password"].toString();
 
-        console.log(username);
-        console.log(password);
-
         const { data, error } = await authClient.signIn.username({
             username: username,
             password: password

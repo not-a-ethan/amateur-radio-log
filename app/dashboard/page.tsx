@@ -56,8 +56,6 @@ export default function Page() {
         e.preventDefault();
         
         const formData = new FormData(e.currentTarget);
-
-        console.log(formData);
         
         const start: string|undefined = formData.get("start")?.toString();
         const end: string|undefined = formData.get("end")?.toString();
@@ -143,8 +141,6 @@ export default function Page() {
         if (error) {
             return;
         };
-
-        console.log(start);
 
         fetch("../api/contacts", {
             method: "POST",
