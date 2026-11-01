@@ -169,3 +169,72 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         { status: 200 }
     );
 };
+
+export async function DELETE(req: NextRequest): Promise<NextResponse> {
+    const session = await auth.api.getSession({headers: await headers()});
+
+    if (!session) {
+        return NextResponse.json(
+            {
+                "error": "Not authenticated"
+            },
+            { status: 403 }
+        );
+    };
+
+    const userId: string = session["session"]["userId"];
+
+    const body = await req.json();
+    const contactId: number|undefined|null = body["contactId"];
+
+    if (!contactId || Number.isNaN(contactId) || contactId <= 0) {
+        return NextResponse.json(
+            {
+                "error": "That is not a valid contact ID"
+            },
+            { status: 400 }
+        );
+    };
+
+    let contactDetails;
+
+    try {
+        contactDetails = await sql`SLECT * FROM contacts WHERE id=${contactId} AND userid = ${userId};`;
+    } catch (e) {
+        console.error(e);
+
+        return NextResponse.json(
+            {
+                "error": "Something went wrong getting contact details"
+            },
+            { status: 500 }
+        );
+    };
+
+    if (contactDetails.length <= 0) {
+        return NextResponse.json(
+            {
+                "error": "That contact does not exist or it is not yours"
+            },
+            { status: 404 }
+        );
+    };
+
+    try {
+        await sql`DELETE FROM contacts WHERE userid=${userId} AND contactid=${contactId};`;
+    } catch (e) {
+        console.error(e);
+
+        return NextResponse.json(
+            {
+                "error": "something went wrong deleting contact"
+            },
+            { status: 500 }
+        );
+    };
+
+    return NextResponse.json(
+        {},
+        { status: 200 }
+    );
+};
