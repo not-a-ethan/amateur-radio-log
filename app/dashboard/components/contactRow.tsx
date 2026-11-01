@@ -1,5 +1,6 @@
+import { CalendarDateTime } from '@internationalized/date';
+
 import { Button, DateField, Form, Input, Label, Modal, Table, TextField, toast } from "@heroui/react";
-import { SyntheticEvent } from "react";
 
 export function ContactRow(props: any) {
 
@@ -62,7 +63,7 @@ export function ContactRow(props: any) {
                                 </Modal.Header>
                                 <Modal.Body>
                                     <Form onSubmit={editContact}>
-                                        <DateField granularity="minute" name="start" id="start" isRequired>
+                                        <DateField granularity="minute" name="start" id="start" isRequired defaultValue={new CalendarDateTime(new Date(start).getFullYear(), new Date(start).getMonth(), new Date(start).getDate(), new Date(start).getHours(), new Date(start).getMinutes())}>
                                             <Label>Start</Label>
                                             <DateField.Group>
                                                 <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>
@@ -71,7 +72,7 @@ export function ContactRow(props: any) {
 
                                         <br />
 
-                                        <DateField granularity="minute" name="end" id="end" isRequired>
+                                        <DateField granularity="minute" name="end" id="end" isRequired defaultValue={new CalendarDateTime(new Date(end).getFullYear(), new Date(end).getMonth(), new Date(end).getDate(), new Date(end).getHours(), new Date(end).getMinutes())}>
                                             <Label>End</Label>
                                             <DateField.Group>
                                                 <DateField.Input>{(segment) => <DateField.Segment segment={segment} />}</DateField.Input>
@@ -80,42 +81,42 @@ export function ContactRow(props: any) {
 
                                         <br />
 
-                                        <TextField isRequired>
+                                        <TextField isRequired defaultValue={callSign}>
                                             <Label htmlFor="callsign">Call Sign</Label>
                                             <Input type="text" id="callsign" name="callsign" />
                                         </TextField>
 
                                         <br />
 
-                                        <TextField isRequired>
+                                        <TextField isRequired defaultValue={freq}>
                                             <Label htmlFor="freq">Frequency</Label>
                                             <Input id="freq" name="freq" type="number" min={1} />
                                         </TextField>
 
                                         <br />
 
-                                        <TextField isRequired>
+                                        <TextField isRequired defaultValue={mode}>
                                             <Label htmlFor="mode">Mode</Label>
                                             <Input id="mode" name="mode" type="text" />
                                         </TextField>
 
                                         <br />
 
-                                        <TextField isRequired>
+                                        <TextField isRequired defaultValue={power}>
                                             <Label htmlFor="power">Power (W)</Label>
                                             <Input id="power" name="power" type="number" min={0} />
                                         </TextField>
 
                                         <br />
 
-                                        <TextField isRequired>
+                                        <TextField isRequired defaultValue={country}>
                                             <Label htmlFor="country">Country of contact</Label>
                                             <Input id="country" name="country" type="text" />
                                         </TextField>
 
                                         <br />
 
-                                        <TextField>
+                                        <TextField defaultValue={comments}>
                                             <Label htmlFor="comment">Comments</Label>
                                             <Input id="comment" name="comment" type="text" />
                                         </TextField>
