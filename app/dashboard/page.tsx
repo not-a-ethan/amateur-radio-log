@@ -20,7 +20,7 @@ export default function Page() {
     } = authClient.useSession();
 
     if (!session && !isPending) {
-        router.replace("/signin");
+    router.replace("/signin");
     };
 
     const [numContacts, setNumContacts] = useState(0);
