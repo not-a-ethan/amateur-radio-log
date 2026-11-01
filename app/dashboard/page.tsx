@@ -228,6 +228,7 @@ export default function Page() {
                                 <Table.Column>Power</Table.Column>
                                 <Table.Column>Country</Table.Column>
                                 <Table.Column>Comments</Table.Column>
+                                <Table.Column>Actions</Table.Column>
                             </Table.Header>
 
                             <Table.Body>
@@ -242,6 +243,7 @@ export default function Page() {
                                             power={contact.power}
                                             country={contact.country}
                                             comments={contact.comments}
+                                            contactId={contact.id}
                                         />
                                     ))}
                             </Table.Body>

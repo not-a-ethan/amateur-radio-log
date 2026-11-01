@@ -199,7 +199,7 @@ export async function DELETE(req: NextRequest): Promise<NextResponse> {
     let contactDetails;
 
     try {
-        contactDetails = await sql`SLECT * FROM contacts WHERE id=${contactId} AND userid = ${userId};`;
+        contactDetails = await sql`SELECT * FROM contacts WHERE id=${contactId} AND userid = ${userId};`;
     } catch (e) {
         console.error(e);
 
@@ -221,7 +221,7 @@ export async function DELETE(req: NextRequest): Promise<NextResponse> {
     };
 
     try {
-        await sql`DELETE FROM contacts WHERE userid=${userId} AND contactid=${contactId};`;
+        await sql`DELETE FROM contacts WHERE userid=${userId} AND id=${contactId};`;
     } catch (e) {
         console.error(e);
 
