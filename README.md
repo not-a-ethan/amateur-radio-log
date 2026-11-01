@@ -22,3 +22,27 @@ A contact is somebody you interacted with over ham radio
 BETTER_AUTH_SECRET=<generate using `openssl rand -base64 32`>
 BETTER_AUTH_URL=<BASE URL including protocol>
 ```
+
+
+### Database
+
+```sql
+CREATE TABLE "profile" (
+  "userid" text PRIMARY KEY,
+  "callsign" text NOT NULL UNIQUE,
+  "country" text NOT NULL
+);
+
+CREATE TABLE "contacts" (
+  "id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "contacts_id_seq"),
+  "startdate" integer NOT NULL,
+  "enddate" integer NOT NULL,
+  "callsign" text NOT NULL,
+  "freq" integer NOT NULL,
+  "mode" text NOT NULL,
+  "power" integer NOT NULL,
+  "country" text NOT NULL,
+  "userid" text NOT NULL,
+  "comments" text
+);
+```
