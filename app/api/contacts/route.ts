@@ -33,7 +33,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
         );
     };
 
-    const currentTime: number = Date.now();
+    const currentTime: number = Math.floor(Date.now()/1000);
     let allContacts;
     let weekContacts;
     let dxContacts;

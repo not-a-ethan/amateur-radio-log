@@ -2,9 +2,9 @@
 
 import { redirect } from "next/navigation";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
-import { Card, Table } from "@heroui/react";
+import { Card, Table, toast } from "@heroui/react";
 
 import { authClient } from "@/lib/auth-client";
 import { ContactRow } from "./components/contactRow";
@@ -21,9 +21,36 @@ export default function Page() {
         redirect("/signin");
     };
 
-    const [numContacts, setNumContacts] = useState(0);
+    const [contacts, setContacts] = useState([]);
     const [weekContacts, setWeekContacts] = useState(0);
     const [dxContacts, setDxContacts] = useState(0);
+
+    function getContacts() {
+        fetch("../api/contacts")
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("Response was not ok");
+            };
+
+            return res.json();
+        })
+        .then(json => {
+            setContacts(json["allContacts"]);
+            setWeekContacts(json["pastWeek"].length);
+            setDxContacts(json["dxContacts"].length);
+        })
+        .catch(e => {
+            console.error(e);
+
+            toast("Something went wrong getting contacts", {
+                actionProps: {
+                    variant: "danger"
+                }
+            });
+        });
+    };
+
+    useEffect(getContacts, []);
     
     return (
         <>
@@ -32,7 +59,7 @@ export default function Page() {
             <span className="grid">
                 <Card className="col1">
                     <Card.Header>
-                        <Card.Title>{numContacts}</Card.Title>
+                        <Card.Title>{contacts.length}</Card.Title>
 
                         <Card.Description>
                             # of total contacts
@@ -79,16 +106,19 @@ export default function Page() {
                             </Table.Header>
 
                             <Table.Body>
-                                    <ContactRow 
-                                        start="Some start date"
-                                        end="Some end date"
-                                        callSign="I didnt know a sign can call"
-                                        freq="123456789"
-                                        mode="FM"
-                                        power="5W"
-                                        country="United States"
-                                        comments=""
-                                    />
+                                    {contacts.map((contact: any) => (
+                                        <ContactRow
+                                            key={contact.id}
+                                            start={contact.start}
+                                            end={contact.end}
+                                            callSign={contact.callsign}
+                                            freq={contact.freq}
+                                            mode={contact.mode}
+                                            power={contact.power}
+                                            country={contact.country}
+                                            comments={contact.comments}
+                                        />
+                                    ))}
                             </Table.Body>
                         </Table.Content>
                     </Table.ScrollContainer>
