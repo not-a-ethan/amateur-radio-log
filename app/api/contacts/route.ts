@@ -81,7 +81,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
     const start: number|undefined|null = body["start"];
     const end: number|undefined|null = body["end"];
-    const callSign: string|undefined|null = body["callsSign"];
+    const callSign: string|undefined|null = body["callSign"];
     const freq: number|undefined|null = body["freq"];
     const mode: string|undefined|null = body["mode"];
     const power: number|undefined|null = body["power"];
@@ -152,7 +152,7 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     };
 
     try {
-        await sql`INSERT INTO contacts (startdate, enddate, callsign, freq, mode, power, country, comments, userid) VALUES (${start}, ${end}, ${callSign}, ${freq}, ${mode}, ${power}, ${country}, ${comments || ""}, ${userId};`;
+        await sql`INSERT INTO contacts (startdate, enddate, callsign, freq, mode, power, country, comments, userid) VALUES (${start}, ${end}, ${callSign}, ${freq}, ${mode}, ${power}, ${country}, ${comments || ""}, ${userId});`;
     } catch (e) {
         console.error(e);
     
