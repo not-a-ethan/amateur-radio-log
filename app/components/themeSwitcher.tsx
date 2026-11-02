@@ -1,0 +1,35 @@
+"use client";
+
+import { useTheme } from "@heroui/react";
+
+import { PressEvent, Switch } from "@heroui/react";
+
+import { Moon, Sun } from "@gravity-ui/icons";
+
+export function ThemeSwitcher() {
+    const {resolvedTheme, setTheme, theme} = useTheme();
+
+    function changeTheme(darkMode: boolean): void {
+        setTheme(darkMode ? "dark": "light");
+    };
+
+    return (
+        <Switch onChange={changeTheme}>
+          {({isSelected}) => (
+            <Switch.Content>
+              <Switch.Control>
+                <Switch.Thumb>
+                  <Switch.Icon>
+                    {isSelected ? (
+                      <Moon className="size-3 text-inherit opacity-100" />
+                    ) : (
+                      <Sun className="size-3 text-inherit opacity-70" />
+                    )}
+                  </Switch.Icon>
+                </Switch.Thumb>
+              </Switch.Control>
+            </Switch.Content>
+          )}
+        </Switch>
+    );
+};
