@@ -2,7 +2,7 @@
 
 import { FormEvent } from 'react';
 
-import { redirect } from 'next/navigation'
+import { redirect } from 'next/navigation';
 
 import { Button, Input , Label} from '@heroui/react';
 

@@ -2,6 +2,9 @@
 
 This project is a digital log book for contacts you make on ham bands.
 
+> NOTE: DO NOT USE. This is not finished and is EXTREMLY INSECURE
+> There is no security, email verififcation, NOTHING. Treat anything entered on this website as fully public as if it was on the front page of every website and social meadia
+
 ## What is Ham and stuff?
 
 Ham radio is another name for Amateur radio.
@@ -21,6 +24,11 @@ A contact is somebody you interacted with over ham radio
 ```
 BETTER_AUTH_SECRET=<generate using `openssl rand -base64 32`>
 BETTER_AUTH_URL=<BASE URL including protocol>
+
+PGHOST=
+PGPORT=
+PGDATABASE=
+PGPASSWORD=
 ```
 
 

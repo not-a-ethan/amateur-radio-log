@@ -1,17 +1,17 @@
+import { Pool } from "pg";
+
 import { betterAuth } from "better-auth";
 import { username } from "better-auth/plugins";
-
-import { Pool } from "pg";
 
 export const auth = betterAuth({
     database: new Pool({
         connectionString: process.env.POSTGRES_URL,
         max: 20,
         idleTimeoutMillis: 30000,
-        maxLifetimeSeconds: 60,
+        maxLifetimeSeconds: 60
     }),
     emailAndPassword: { 
-        enabled: true,
+        enabled: true
     }, 
     plugins: [
         username()

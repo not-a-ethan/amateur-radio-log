@@ -2,7 +2,7 @@
 
 import { useTheme } from "@heroui/react";
 
-import { PressEvent, Switch } from "@heroui/react";
+import { Switch } from "@heroui/react";
 
 import { Moon, Sun } from "@gravity-ui/icons";
 

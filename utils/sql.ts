@@ -8,5 +8,5 @@ export const sql: any = postgres({
     password: process.env.PGPASSWORD,
     ssl: {
         rejectUnauthorized: false,
-    },
+    }
 });
