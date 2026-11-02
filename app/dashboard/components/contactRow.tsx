@@ -38,6 +38,122 @@ export function ContactRow(props: any) {
 
     function editContact(e: React.SyntheticEvent<HTMLFormElement>) {
         e.preventDefault();
+
+        const formData = new FormData(e.currentTarget);
+
+        const start: string|undefined = formData.get("start")?.toString();
+        const end: string|undefined = formData.get("end")?.toString();
+        const callSign: string|undefined = formData.get("callsign")?.toString();
+        const freq: number = Number(formData.get("freq")?.toString());
+        const mode: string|undefined = formData.get("mode")?.toString();
+        const power: number = Number(formData.get("power")?.toString());
+        const country: string|undefined = formData.get("country")?.toString();
+        const comments: string|undefined = formData.get("comment")?.toString();
+
+        let error = false;
+
+        if (!start || start.trim().length === 0) {
+            toast("The start value must be valid", {
+                actionProps: {
+                    variant: "danger"
+                }
+            });
+
+            error = true;
+        };
+
+        if (!end || end.trim().length === 0) {
+            toast("The end value must be valid", {
+                actionProps: {
+                    variant: "danger"
+                }
+            });
+
+            error = true;
+        };
+
+        if (!callSign || callSign.trim().length === 0) {
+            toast("The callsign must be valid", {
+                actionProps: {
+                    variant: "danger"
+                }
+            });
+
+            error = true;
+        };
+
+        if (Number.isNaN(freq) || freq <= 0) {
+            toast("Frequency must be valid", {
+                actionProps: {
+                    variant: "danger"
+                }
+            });
+
+            error = true;
+        };
+
+        if (!mode || mode.trim().length === 0) {
+            toast("Mode must be valid", {
+                actionProps: {
+                    variant: "danger"
+                }
+            });
+            
+            error = true;
+        };
+
+        if (Number.isNaN(power) || power <= 0) {
+            toast("Power must be valid", {
+                actionProps: {
+                    variant: "danger"
+                }
+            });
+
+            error = true;
+        };
+
+        if (!country || country.trim().length === 0) {
+            toast("Country must be valid", {
+                actionProps: {
+                    variant: "danger"
+                }
+            });
+
+            error = true;
+        };
+
+        if (error) {
+            return;
+        };
+
+        fetch("../api/contacts", {
+            method: "PUT",
+            body: JSON.stringify({
+                contactId: props["contactId"],
+                start: Math.floor(new Date(start || "").getTime() / 1000),
+                end: Math.floor(new Date(end || "").getTime() / 1000),
+                callSign: callSign,
+                freq: freq,
+                mode: mode,
+                power: power,
+                country: country,
+                comments: comments
+            })
+        })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("Something went wrong editing contact");
+            };
+        })
+        .catch(e => {
+            console.error(e);
+
+            toast("Something went wrong editing contact", {
+                actionProps: {
+                    variant: "danger"
+                }
+            });
+        });
     };
 
     return (
