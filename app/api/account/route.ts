@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { headers } from "next/headers";
 
 import { auth } from "@/utils/auth";
-import { sql } from "@/utils/sql";
 
 export async function PUT(req: NextRequest): Promise<NextResponse> {
     const session = await auth.api.getSession({headers: await headers()});
@@ -15,8 +14,6 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
             { status: 403 }
         );
     };
-
-    const userId: string = session["session"]["userId"];
     
     const body = await req.json();
     const username: string|undefined|null = body["username"];
