@@ -136,6 +136,82 @@ export default function Page() {
             });
         });
     };
+    
+    function changeCountry(e: React.SyntheticEvent<HTMLFormElement>) {
+        e.preventDefault();
+
+        const data = new FormData(e.currentTarget);
+        const country: string|undefined = data.get("country")?.toString();
+
+        if (!country || country.trim().length === 0) {
+            toast("That is not a valid country", {
+                actionProps: {
+                    variant: "danger"
+                }
+            });
+
+            return;
+        };
+
+        fetch("../api/account/country", {
+            method: "PUT",
+            body: JSON.stringify({
+                "country": country
+            })
+        })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("Something went wrong changing your country");
+            };
+        })
+        .catch(e => {
+            console.log(e);
+
+            toast("Something went wrong changing your country", {
+                actionProps: {
+                    variant: "danger"
+                }
+            });
+        });
+    };
+
+    function changeCallSign(e: React.SyntheticEvent<HTMLFormElement>) {
+        e.preventDefault();
+
+        const data = new FormData(e.currentTarget);
+        const callSign: string|undefined = data.get("callSign")?.toString();
+
+        if (!callSign || callSign.trim().length === 0) {
+            toast("That is not a valid callsign", {
+                actionProps: {
+                    variant: "danger"
+                }
+            });
+
+            return;
+        };
+
+        fetch("../api/account/callSign", {
+            method: "PUT",
+            body: JSON.stringify({
+                callSign: callSign
+            })
+        })
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("Response was not ok")
+            };
+        })
+        .catch(e => {
+            console.error(e);
+        
+            toast("Something went wrong changing your call sign", {
+                actionProps: {
+                    variant: "danger"
+                }
+            });
+        });
+    };
 
     return (
         <>
@@ -177,6 +253,28 @@ export default function Page() {
                 </TextField>
 
                 <Button type="submit" variant="primary">Change Password</Button>
+            </Form>
+
+            <h2>Change Country</h2>
+
+            <Form onSubmit={changeCountry}>
+                <TextField isRequired>
+                    <Label htmlFor="country">Country:</Label>
+                    <Input type="text" id="country" name="country" />
+                </TextField>
+
+                <Button type="submit" variant="primary">Change Country</Button>
+            </Form>
+
+            <h2>Change Call Sign</h2>
+
+            <Form onSubmit={changeCallSign}>
+                <TextField isRequired>
+                    <Label htmlFor="callSign">Call Sign:</Label>
+                    <Input type="text" id="callSign" name="callSign" />
+                </TextField>
+
+                <Button type="submit" variant="primary">Change Call Sign</Button>
             </Form>
         </>
     );
