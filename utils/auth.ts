@@ -11,9 +11,15 @@ export const auth = betterAuth({
         maxLifetimeSeconds: 60,
     }),
     emailAndPassword: { 
-        enabled: true, 
+        enabled: true,
     }, 
-    plugins: [ 
-        username() 
-    ] 
+    plugins: [
+        username()
+    ],
+    user: {
+        changeEmail: {
+            enabled: true,
+            updateEmailWithoutVerification: true
+        }
+    }
 });

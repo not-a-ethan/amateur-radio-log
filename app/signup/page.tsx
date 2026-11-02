@@ -34,7 +34,8 @@ export default function Page() {
         const { data, error } = await authClient.signUp.email({
             email: email,
             name: username,
-            password: password
+            password: password,
+            username: username
         });
     };
     
