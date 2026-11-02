@@ -34,7 +34,7 @@ export default function Page() {
             return;
         };
 
-        fetch(",,/api/account", {
+        fetch("../api/account", {
             method: "PUT",
             body: JSON.stringify({
                 "username": newUsername
