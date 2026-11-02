@@ -4,7 +4,7 @@ import { redirect } from "next/navigation";
 
 import { useState, useEffect } from "react";
 
-import { Button, Card, DateField, Form, Input, Label, Modal, Table, TextField, toast } from "@heroui/react";
+import { Button, Card, DateField, Form, Input, Label, Link, Modal, Table, TextField, toast } from "@heroui/react";
 
 import { authClient } from "@/lib/auth-client";
 import { ContactRow } from "./components/contactRow";
@@ -176,6 +176,8 @@ export default function Page() {
     return (
         <>
             <h1>Dashboard</h1>
+
+            <p>If you are getting an error please go to <Link href="/account">/account</Link> and set your country and call sign</p>
 
             <span className="grid">
                 <Card className="col1">

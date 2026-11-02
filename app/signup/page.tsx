@@ -35,7 +35,8 @@ export default function Page() {
             email: email,
             name: username,
             password: password,
-            username: username
+            username: username,
+            callbackURL: "/account"
         });
     };
     

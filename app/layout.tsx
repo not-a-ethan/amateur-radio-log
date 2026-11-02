@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+
+import { Link, Toast } from "@heroui/react";
+
 import "./globals.css";
 
 const geistSans = Geist({
@@ -23,7 +26,16 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        {children}
+        <Toast.Provider />
+
+        <br />
+        
+        <footer className="footer">
+          <Link href="/">Home</Link> | <Link href="/dashboard">Dashboard</Link> | <Link href="/account">Account</Link>
+        </footer>
+      </body>
     </html>
   );
 }
