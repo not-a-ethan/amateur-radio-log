@@ -10,6 +10,12 @@ This project is a digital log book for contacts you make on ham bands.
 Ham radio is another name for Amateur radio.
 A contact is somebody you interacted with over ham radio
 
+## Demo
+
+You can use the website here: https://amateur-radio-log.vercel.app/
+
+Make sure to set your accounts country and call sign in settings
+
 ## Dev stuff
 
 ### Stack
