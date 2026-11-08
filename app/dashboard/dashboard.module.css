@@ -1,0 +1,10 @@
+.page {
+    width: 98vw;
+    display: block;
+
+    margin: 0 auto;
+}
+
+.stats {
+    gap: 2%;
+}

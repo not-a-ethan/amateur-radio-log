@@ -4,13 +4,13 @@ import { redirect } from "next/navigation";
 
 import { useState, useEffect } from "react";
 
-import { Button, Card, DateField, Form, Input, Label, Link, Modal, Table, TextField, toast } from "@heroui/react";
+import { Button, Card, DateField, Form, Input, Label, Modal, Table, TextField, toast } from "@heroui/react";
 
 import { authClient } from "@/lib/auth-client";
 
 import { ContactRow } from "./components/contactRow";
 
-import styles from "./dash.module.css";
+import styles from "./dashboard.module.css";
 
 export default function Page() {
     const {
@@ -175,14 +175,12 @@ export default function Page() {
             });
         });
     };
-    
+        
     return (
-        <>
+        <span className={`${styles.page}`}>
             <h1>Dashboard</h1>
 
-            <p>If you are getting an error please go to <Link href="/account">/account</Link> and set your country and call sign</p>
-
-            <span className="grid">
+            <span className={`grid ${styles.stats}`}>
                 <Card className="col1">
                     <Card.Header>
                         <Card.Title>{contacts.length}</Card.Title>
@@ -252,6 +250,8 @@ export default function Page() {
                     </Table.ScrollContainer>
                 </Table>
             </span>
+
+            <br />
 
             <Modal>
                 <Button>Add Contact</Button>
@@ -332,6 +332,6 @@ export default function Page() {
                     </Modal.Container>
                 </Modal.Backdrop>
             </Modal>
-        </>
+        </span>
     );
 };

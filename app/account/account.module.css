@@ -1,0 +1,13 @@
+.page {
+    width: 98vw;
+
+    margin: 0 auto;
+}
+
+.settings {
+    gap: 2%;
+}
+
+.changeBtn {
+    margin-top: 2%;
+}

@@ -6,6 +6,8 @@ import { Button, Form, Input, Label, TextField, toast } from "@heroui/react";
 
 import { authClient } from "@/lib/auth-client";
 
+import styles from "./account.module.css";
+
 export default function Page() {
     const {
         data: session,
@@ -214,68 +216,80 @@ export default function Page() {
     };
 
     return (
-        <>
+        <span className={`${styles.page}`}>
             <h1>Account Page</h1>
 
-            <h2>Change Username</h2>
+            <span className={`grid ${styles.settings}`}>
+                <span className="col1 row1">
+                    <h2>Change Username</h2>
 
-            <Form onSubmit={changeUsername}>
-                <TextField isRequired>
-                    <Label htmlFor="username">New username:</Label>
-                    <Input type="text" name="username" id="username" />
-                </TextField>
-            
-                <Button type="submit" variant="primary">Change Username</Button>
-            </Form>
+                    <Form onSubmit={changeUsername}>
+                        <TextField isRequired>
+                            <Label htmlFor="username">New username:</Label>
+                            <Input type="text" name="username" id="username" />
+                        </TextField>
+                    
+                        <Button type="submit" variant="primary" className={`${styles.changeBtn}`}>Change Username</Button>
+                    </Form>
+                </span>
 
-            <h2>Change email</h2>
-            
-            <Form onSubmit={changeEmail}>
-                <TextField isRequired>
-                    <Label htmlFor="email">New Email:</Label>
-                    <Input type="text" name="email" id="email" />
-                </TextField>
+                <span className="col2 row1">
+                    <h2>Change email</h2>
+                
+                    <Form onSubmit={changeEmail}>
+                        <TextField isRequired>
+                            <Label htmlFor="email">New Email:</Label>
+                            <Input type="text" name="email" id="email" />
+                        </TextField>
 
-                <Button type="submit" variant="primary">Change Email</Button>
-            </Form>
+                        <Button type="submit" variant="primary" className={`${styles.changeBtn}`}>Change Email</Button>
+                    </Form>
+                </span>
 
-            <h2>Change password</h2>
+                <span className="col1 row2">
+                    <h2>Change password</h2>
 
-            <Form onSubmit={changePassword}>
-                <TextField isRequired>
-                    <Label htmlFor="oldPwd">Current Password:</Label>
-                    <Input type="password" name="oldPwd" id="oldPwd" />
-                </TextField>
+                    <Form onSubmit={changePassword}>
+                        <TextField isRequired>
+                            <Label htmlFor="oldPwd">Current Password:</Label>
+                            <Input type="password" name="oldPwd" id="oldPwd" />
+                        </TextField>
 
-                <TextField isRequired>
-                    <Label htmlFor="newPwd">New Password:</Label>
-                    <Input type="password" name="newPwd" id="newPwd" />
-                </TextField>
+                        <TextField isRequired>
+                            <Label htmlFor="newPwd">New Password:</Label>
+                            <Input type="password" name="newPwd" id="newPwd" />
+                        </TextField>
 
-                <Button type="submit" variant="primary">Change Password</Button>
-            </Form>
+                        <Button type="submit" variant="primary" className={`${styles.changeBtn}`}>Change Password</Button>
+                    </Form>
+                </span>
 
-            <h2>Change Country</h2>
+                <span className="col2 row2">
+                    <h2>Change Country</h2>
 
-            <Form onSubmit={changeCountry}>
-                <TextField isRequired>
-                    <Label htmlFor="country">Country:</Label>
-                    <Input type="text" id="country" name="country" />
-                </TextField>
+                    <Form onSubmit={changeCountry}>
+                        <TextField isRequired>
+                            <Label htmlFor="country">Country:</Label>
+                            <Input type="text" id="country" name="country" />
+                        </TextField>
 
-                <Button type="submit" variant="primary">Change Country</Button>
-            </Form>
+                        <Button type="submit" variant="primary" className={`${styles.changeBtn}`}>Change Country</Button>
+                    </Form>
+                </span>
 
-            <h2>Change Call Sign</h2>
+                <span className="col1 row3">
+                     <h2>Change Call Sign</h2>
 
-            <Form onSubmit={changeCallSign}>
-                <TextField isRequired>
-                    <Label htmlFor="callSign">Call Sign:</Label>
-                    <Input type="text" id="callSign" name="callSign" />
-                </TextField>
+                    <Form onSubmit={changeCallSign}>
+                        <TextField isRequired>
+                            <Label htmlFor="callSign">Call Sign:</Label>
+                            <Input type="text" id="callSign" name="callSign" />
+                        </TextField>
 
-                <Button type="submit" variant="primary">Change Call Sign</Button>
-            </Form>
-        </>
+                        <Button type="submit" variant="primary" className={`${styles.changeBtn}`}>Change Call Sign</Button>
+                    </Form>
+                </span>
+            </span>
+        </span>
     );
 };
