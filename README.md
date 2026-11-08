@@ -59,4 +59,13 @@ CREATE TABLE "contacts" (
   "userid" text NOT NULL,
   "comments" text
 );
+
+CREATE TABLE "repeaters" (
+  "id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "repeaters_id_seq"),
+  "name" text NOT NULL,
+  "freq" integer NOT NULL,
+  "offset" integer NOT NULL,
+  "mode" text NOT NULL,
+  "userid" text NOT NULL
+);
 ```
