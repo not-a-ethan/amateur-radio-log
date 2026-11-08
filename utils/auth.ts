@@ -3,6 +3,8 @@ import { Pool } from "pg";
 import { betterAuth } from "better-auth";
 import { username } from "better-auth/plugins";
 
+import { sql } from "./sql";
+
 export const auth = betterAuth({
     database: new Pool({
         connectionString: process.env.POSTGRES_URL,
@@ -20,6 +22,15 @@ export const auth = betterAuth({
         changeEmail: {
             enabled: true,
             updateEmailWithoutVerification: true
+        }
+    },
+    databaseHooks: {
+        user: {
+            create: {
+                after: async (user) => {
+                    await sql`INSERT INTO profile VALUES (${user.id}, 'callsign', 'country');`;
+                },
+            }
         }
     }
 });

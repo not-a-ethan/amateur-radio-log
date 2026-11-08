@@ -165,7 +165,7 @@ export default function Page() {
             };
         })
         .catch(e => {
-            console.log(e);
+            console.error(e);
 
             toast("Something went wrong changing your country", {
                 actionProps: {

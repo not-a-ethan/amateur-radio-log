@@ -10,6 +10,8 @@ import { authClient } from "@/lib/auth-client";
 
 import { ContactRow } from "./components/contactRow";
 
+import styles from "./dash.module.css";
+
 export default function Page() {
     const {
         data: session,
