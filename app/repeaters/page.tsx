@@ -25,12 +25,33 @@ export default function Page() {
     const [repeaters, setRepeaters] = useState([]);
 
     function getRepeaters() {
+        fetch("../api/repeaters")
+        .then(res => {
+            if (!res.ok) {
+                throw new Error("Response was not ok")
+            };
 
+            return res.json();
+        })
+        .then(json => {
+            setRepeaters(json["repeaters"]);
+        })
+        .catch(e => {
+            console.error(e);
+
+            toast("Something went wrong getting repeaters", {
+                actionProps: {
+                    variant: "danger"
+                }
+            });
+        });
     };
 
     function addRepeater() {
 
     };
+
+    useEffect(getRepeaters, []);
 
     return (
         <span>

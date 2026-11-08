@@ -18,6 +18,8 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
     const userId: string = session["session"]["userId"];
 
+    console.log(userId);
+
     try {
         const repeaters: any[] = await sql`SELECT * FROM repeaters WHERE userid=${userId};`;
 
@@ -32,7 +34,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
 
         return NextResponse.json(
             {
-                "error": "Somethign went wrong getting your contacts"
+                "error": "Something went wrong getting your contacts"
             },
             { status: 500 }
         );
