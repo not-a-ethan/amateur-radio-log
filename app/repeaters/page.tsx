@@ -161,37 +161,39 @@ export default function Page() {
 
                 <Modal.Backdrop>
                     <Modal.Container>
-                        <Modal.CloseTrigger />
+                        <Modal.Dialog>
+                            <Modal.CloseTrigger />
                         
-                        <Modal.Header>
-                            <Modal.Heading>Add Repeater</Modal.Heading>
-                        </Modal.Header>
+                            <Modal.Header>
+                                <Modal.Heading>Add Repeater</Modal.Heading>
+                            </Modal.Header>
 
-                        <Modal.Body>
-                            <Form onSubmit={addRepeater}>
-                                <TextField isRequired>
-                                    <Label htmlFor="name">Name:</Label>
-                                    <Input type="text" id="name" name="name" />
-                                </TextField>
+                            <Modal.Body>
+                                <Form onSubmit={addRepeater}>
+                                    <TextField isRequired>
+                                        <Label htmlFor="name">Name:</Label>
+                                        <Input type="text" id="name" name="name" />
+                                    </TextField>
 
-                                <TextField isRequired>
-                                    <Label htmlFor="freq">Frequency:</Label>
-                                    <Input type="number" min={1} id="freq" name="freq" />
-                                </TextField>
+                                    <TextField isRequired>
+                                        <Label htmlFor="freq">Frequency:</Label>
+                                        <Input type="number" min={1} id="freq" name="freq" />
+                                    </TextField>
 
-                                <TextField isRequired>
-                                    <Label htmlFor="offset">Offset:</Label>
-                                    <Input type="number" name="offset" id="offset" />
-                                </TextField>
+                                    <TextField isRequired>
+                                        <Label htmlFor="offset">Offset:</Label>
+                                        <Input type="number" name="offset" id="offset" />
+                                    </TextField>
 
-                                <TextField isRequired>
-                                    <Label htmlFor="mode">Mode:</Label>
-                                    <Input type="text" name="mode" id="mode" />
-                                </TextField>
+                                    <TextField isRequired>
+                                        <Label htmlFor="mode">Mode:</Label>
+                                        <Input type="text" name="mode" id="mode" />
+                                    </TextField>
 
-                                <Button type="submit">Add Repeater</Button>
-                            </Form>
-                        </Modal.Body>
+                                    <Button type="submit">Add Repeater</Button>
+                                </Form>
+                            </Modal.Body>
+                        </Modal.Dialog>
                     </Modal.Container>
                 </Modal.Backdrop>
             </Modal>

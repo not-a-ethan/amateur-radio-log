@@ -69,16 +69,16 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
         );
     };
 
-    if (!freq || Number.isNaN(freq) || freq > 0) {
+    if (!freq || Number.isNaN(freq) || !(freq > 0)) {
         return NextResponse.json(
             {
-                "error": "You can transmit on vibes"
+                "error": "You cant transmit on vibes"
             },
             { status: 400 }
         );
     };
 
-    if (!offset || Number.isNaN(offset) || offset !== 0) {
+    if (!offset || Number.isNaN(offset) || offset === 0) {
         return NextResponse.json(
             {
                 "error": "You need an offset"
@@ -97,13 +97,13 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
     };
 
     try {
-        await sql`INSERT INTO repeaters (name, freq, offset, mode, userid) VALUES (${name.trim()}, ${freq}, ${offset}, ${mode.trim()}, ${userId});`;
+        await sql`INSERT INTO repeaters (name, freq, "offset", mode, userid) VALUES (${name.trim()}, ${freq}, ${offset}, ${mode.trim()}, ${userId});`;
     } catch (e) {
         console.error(e);
 
         return NextResponse.json(
             {
-                "error": "Soemthing went wrong adding repeater"
+                "error": "Something went wrong adding repeater"
             },
             { status: 500 }
         );
@@ -152,7 +152,7 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
         if (repeater.length === 0) {
             return NextResponse.json(
                 {
-                    "error": "That repeater does not exist or it is not yours"
+                    "error": "That repeaters does not exist or it is not yours"
                 },
                 { status: 404 }
             );
@@ -170,7 +170,7 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
 
     if (name && name.trim().length > 0) {
         try {
-            await sql`UPDATE repeater SET name=${name} WHERE id=${id} AND userid=${userId};`;
+            await sql`UPDATE repeaters SET name=${name} WHERE id=${id} AND userid=${userId};`;
         } catch (e) {
             console.error(e);
 
@@ -200,7 +200,7 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
 
     if (offset && !Number.isNaN(offset) && offset !== 0) {
         try {
-            await sql`UPDATE repeaters SET offset=${offset} WHERE id=${id} AND userid=${userId};`;
+            await sql`UPDATE repeaters SET "offset"=${offset} WHERE id=${id} AND userid=${userId};`;
         } catch (e) {
             console.error(e);
 

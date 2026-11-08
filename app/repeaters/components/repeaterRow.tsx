@@ -19,7 +19,7 @@ export function RepeaterRow(props: any) {
         const offset: number = Number(formData.get("offset")?.toString());
         const mode: string|undefined = formData.get("mode")?.toString();
 
-        fetch("../api/repeater", {
+        fetch("../api/repeaters", {
             method: "PUT",
             body: JSON.stringify({
                 id: id,
@@ -46,7 +46,7 @@ export function RepeaterRow(props: any) {
     };
 
     function deleteRepeater() {
-        fetch("../api/repeater", {
+        fetch("../api/repeaters", {
             method: "DELETE",
             body: JSON.stringify({
                 id: id
@@ -118,17 +118,21 @@ export function RepeaterRow(props: any) {
                 </Modal>
 
                 <Modal>
-                    <Modal.Container>
-                        <Modal.Dialog>
-                            <Modal.CloseTrigger />
-                            <Modal.Header>
-                                <Modal.Heading>Delete Repeater</Modal.Heading>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <Button variant="danger" onPress={deleteRepeater}>Are you ABSOLUTLY SURE you want to delete this repeater?</Button>
-                            </Modal.Body>
-                        </Modal.Dialog>
-                    </Modal.Container>
+                    <Button variant="danger">Delete</Button>
+
+                    <Modal.Backdrop>
+                        <Modal.Container>
+                            <Modal.Dialog>
+                                <Modal.CloseTrigger />
+                                <Modal.Header>
+                                    <Modal.Heading>Delete Repeater</Modal.Heading>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <Button variant="danger" onPress={deleteRepeater}>Are you ABSOLUTLY SURE you want to delete this repeater?</Button>
+                                </Modal.Body>
+                            </Modal.Dialog>
+                        </Modal.Container>
+                    </Modal.Backdrop>
                 </Modal>
             </Table.Cell>
         </Table.Row>
