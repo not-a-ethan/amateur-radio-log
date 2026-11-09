@@ -3,7 +3,6 @@ import { CalendarDateTime } from '@internationalized/date';
 import { Button, DateField, Form, Input, Label, Modal, Table, TextField, toast } from "@heroui/react";
 
 export function ContactRow(props: any) {
-
     const start = props["start"];
     const end = props["end"];
     const callSign = props["callSign"];

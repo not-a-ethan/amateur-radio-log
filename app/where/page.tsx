@@ -4,9 +4,11 @@ import { useEffect, useState } from "react";
 
 import { redirect } from "next/navigation";
 
-import { fieldErrorVariants, Table, toast } from "@heroui/react";
+import { Table, toast } from "@heroui/react";
 
 import { authClient } from "@/lib/auth-client";
+
+import { RepeaterContacts } from "./components/repeater";
 
 export default function Page() {
     const {
@@ -22,6 +24,9 @@ export default function Page() {
 
     const [contacts, setContacts]: any = useState([]);
     const [repeaters, setRepeaters] = useState([]);
+    const [list, setList] = useState<string[]>([]);
+    const [fullList, setFullList] = useState<any>({});
+
 
     function getData() {
         fetch("../api/repeaters")
@@ -83,13 +88,21 @@ export default function Page() {
         const frequenciesObj = Object.fromEntries(entries);
         const frequencies = Object.keys(frequenciesObj);
 
+        for (let i = 0; i < frequencies.length; i++) {
+            frequenciesObj[frequencies[i]] = { "amount": 0, "contacts": [] };
+        };
+        
         for (let i = 0; i < contacts.length; i++) {
             const thisFreq: string = contacts[i]["freq"].toString();
 
             if (frequencies.includes(thisFreq)) {
-                frequenciesObj[frequencies[i]] = frequenciesObj[frequencies[i]] + 1;
+                frequenciesObj[frequencies[i]].amount = frequenciesObj[frequencies[i]]["amount"] + 1;
+                frequenciesObj[frequencies[i]].contacts.push(contacts[i]);
             };
         };
+
+        setList(Object.keys(frequenciesObj));
+        setFullList(frequenciesObj);
     };
 
     useEffect(getData, []);
@@ -97,7 +110,33 @@ export default function Page() {
 
     return (
         <span>
+            <h1>Contacts per repeater</h1>
 
+            <p>If nothing loads that means you either dont have any contacts and/or you dont have any repeaters</p>
+
+            <Table>
+                <Table.ScrollContainer>
+                    <Table.Content aria-label="Contacts per repeater">
+                        <Table.Header>
+                            <Table.Column isRowHeader>Name</Table.Column>
+                            <Table.Column>Frequency</Table.Column>
+                            <Table.Column>Mode(s)</Table.Column>
+                            <Table.Column>Contacts</Table.Column>
+                        </Table.Header>
+
+                        <Table.Body>
+                            {list.map((thisRepeater: string) => (
+                                <RepeaterContacts
+                                    key={thisRepeater}
+                                    contacts={fullList[thisRepeater]["contacts"]}
+                                    repeaters={repeaters}
+                                    thisRepeater={thisRepeater}
+                                />
+                            ))}
+                        </Table.Body>
+                    </Table.Content>
+                </Table.ScrollContainer>
+            </Table>
         </span>
     );
 };
