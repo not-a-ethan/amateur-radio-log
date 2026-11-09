@@ -4,6 +4,8 @@ import { headers } from "next/headers";
 import { auth } from "@/utils/auth";
 import { sql } from "@/utils/sql";
 
+import { ContactsTable, ProfileTable } from "@/utils/types";
+
 export async function GET(req: NextRequest): Promise<NextResponse> {
     const session = await auth.api.getSession({headers: await headers()});
 
@@ -20,7 +22,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     let userCountry: string;
 
     try {
-        const userData = await sql`SELECT country FROM profile WHERE userid = ${userId};`;
+        const userData: ProfileTable[] = await sql`SELECT country FROM profile WHERE userid = ${userId};`;
         userCountry = userData[0]["country"];
     } catch (e) {
         console.error(e);
@@ -34,9 +36,9 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     };
 
     const currentTime: number = Math.floor(Date.now()/1000);
-    let allContacts;
-    let weekContacts;
-    let dxContacts;
+    let allContacts: ContactsTable[];
+    let weekContacts: ContactsTable[];
+    let dxContacts: ContactsTable[];
 
     try {
         allContacts = await sql`SELECT * FROM contacts WHERE userid=${userId};`;
@@ -204,7 +206,7 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
         );
     };
 
-    let contactInfo;
+    let contactInfo: ContactsTable[];
     
     try {
         contactInfo = await sql`SELECT * FROM contacts WHERE id=${contactId} AND userid=${userId};`;
@@ -379,7 +381,7 @@ export async function DELETE(req: NextRequest): Promise<NextResponse> {
         );
     };
 
-    let contactDetails;
+    let contactDetails: ContactsTable[];
 
     try {
         contactDetails = await sql`SELECT * FROM contacts WHERE id=${contactId} AND userid = ${userId};`;

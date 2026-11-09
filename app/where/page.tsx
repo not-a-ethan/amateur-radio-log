@@ -10,6 +10,8 @@ import { authClient } from "@/lib/auth-client";
 
 import { RepeaterContacts } from "./components/repeater";
 
+import { ContactsTable, RepeatersTable } from "@/utils/types";
+
 import styles from "./where.module.css";
 
 export default function Page() {
@@ -24,11 +26,10 @@ export default function Page() {
         redirect("/signin");
     };
 
-    const [contacts, setContacts]: any = useState([]);
-    const [repeaters, setRepeaters] = useState([]);
+    const [contacts, setContacts] = useState<ContactsTable[]>([]);
+    const [repeaters, setRepeaters] = useState<RepeatersTable[]>([]);
     const [list, setList] = useState<string[]>([]);
     const [fullList, setFullList] = useState<any>({});
-
 
     function getData() {
         fetch("../api/repeaters")

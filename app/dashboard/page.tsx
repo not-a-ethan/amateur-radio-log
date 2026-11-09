@@ -10,6 +10,8 @@ import { authClient } from "@/lib/auth-client";
 
 import { ContactRow } from "./components/contactRow";
 
+import { ContactsTable } from "@/utils/types";
+
 import styles from "./dashboard.module.css";
 
 export default function Page() {
@@ -24,9 +26,9 @@ export default function Page() {
         redirect("/signin");
     };
 
-    const [contacts, setContacts] = useState([]);
-    const [weekContacts, setWeekContacts] = useState(0);
-    const [dxContacts, setDxContacts] = useState(0);
+    const [contacts, setContacts] = useState<ContactsTable[]>([]);
+    const [weekContacts, setWeekContacts] = useState<number>(0);
+    const [dxContacts, setDxContacts] = useState<number>(0);
 
     function getContacts() {
         fetch("../api/contacts")

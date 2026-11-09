@@ -4,10 +4,12 @@ import { Button, Modal, Table } from "@heroui/react";
 
 import { ContactRow } from "@/app/dashboard/components/contactRow";
 
+import { ContactsTable, RepeatersTable } from "@/utils/types";
+
 export function RepeaterContacts(props: any) {
-    const repeaters = props["repeaters"];
-    const contacts = props["contacts"];
-    const thisRepeaterFreq = props["thisRepeater"];
+    const repeaters: RepeatersTable[] = props["repeaters"];
+    const contacts: ContactsTable[] = props["contacts"];
+    const thisRepeaterFreq: number = props["thisRepeater"];
 
     let repeater;
 

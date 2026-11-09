@@ -10,6 +10,8 @@ import { authClient } from "@/lib/auth-client";
 
 import { RepeaterRow } from "./components/repeaterRow";
 
+import { RepeatersTable } from "@/utils/types";
+
 import styles from "./repeater.module.css";
 
 export default function Page() {
@@ -24,7 +26,7 @@ export default function Page() {
         redirect("/signin");
     };
 
-    const [repeaters, setRepeaters] = useState([]);
+    const [repeaters, setRepeaters] = useState<RepeatersTable[]>([]);
 
     function getRepeaters() {
         fetch("../api/repeaters")

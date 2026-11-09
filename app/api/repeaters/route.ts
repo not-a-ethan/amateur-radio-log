@@ -4,6 +4,8 @@ import { headers } from "next/headers";
 import { auth } from "@/utils/auth";
 import { sql } from "@/utils/sql";
 
+import { RepeatersTable } from "@/utils/types";
+
 export async function GET(req: NextRequest): Promise<NextResponse> {
     const session = await auth.api.getSession({headers: await headers()});
 
@@ -19,7 +21,7 @@ export async function GET(req: NextRequest): Promise<NextResponse> {
     const userId: string = session["session"]["userId"];
 
     try {
-        const repeaters: any[] = await sql`SELECT * FROM repeaters WHERE userid=${userId};`;
+        const repeaters: RepeatersTable[] = await sql`SELECT * FROM repeaters WHERE userid=${userId};`;
 
         return NextResponse.json(
             {
@@ -147,7 +149,7 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
     };
 
     try {
-        const repeater = await sql`SELECT * FROM repeaters WHERE userid=${userId} AND id=${id};`;
+        const repeater: RepeatersTable[] = await sql`SELECT * FROM repeaters WHERE userid=${userId} AND id=${id};`;
 
         if (repeater.length === 0) {
             return NextResponse.json(
