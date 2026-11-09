@@ -47,7 +47,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           <br />
           
           <footer className="footer">
-            <Link href="/">Home</Link> | <Link href="/dashboard">Dashboard</Link> | <Link href="/account">Account</Link> | <ThemeSwitcher className="inline" />
+            <Link href="/">Home</Link> | <Link href="/dashboard">Dashboard</Link> | <Link href="/account">Account</Link> | <Link href="/repeaters">Repeaters</Link> | <Link href="/where">Where</Link> | <ThemeSwitcher className="inline" />
           </footer>
         </ThemeProvider>
       </body>

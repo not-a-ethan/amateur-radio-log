@@ -10,6 +10,8 @@ import { authClient } from "@/lib/auth-client";
 
 import { RepeaterContacts } from "./components/repeater";
 
+import styles from "./where.module.css";
+
 export default function Page() {
     const {
         data: session,
@@ -75,7 +77,7 @@ export default function Page() {
     function perRepeater() {
         if (contacts.length === 0 || repeaters.length === 0) {
             return;
-        }
+        };
 
         const entries = [];
 
@@ -109,7 +111,7 @@ export default function Page() {
     useEffect(perRepeater, [contacts, repeaters]);
 
     return (
-        <span>
+        <span className={`${styles.page}`}>
             <h1>Contacts per repeater</h1>
 
             <p>If nothing loads that means you either dont have any contacts and/or you dont have any repeaters</p>

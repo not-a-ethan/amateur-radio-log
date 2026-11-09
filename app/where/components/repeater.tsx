@@ -33,7 +33,7 @@ export function RepeaterContacts(props: any) {
                     <Button>View All</Button>
 
                     <Modal.Backdrop>
-                        <Modal.Container>
+                        <Modal.Container size="cover">
                             <Modal.Dialog>
                                 <Modal.CloseTrigger />
                                 <Modal.Header>

@@ -10,6 +10,8 @@ import { authClient } from "@/lib/auth-client";
 
 import { RepeaterRow } from "./components/repeaterRow";
 
+import styles from "./repeater.module.css";
+
 export default function Page() {
     const {
         data: session,
@@ -125,7 +127,7 @@ export default function Page() {
     useEffect(getRepeaters, []);
 
     return (
-        <span>
+        <span className={`${styles.page}`}>
             <h1>Repeaters</h1>
 
             <Table>
