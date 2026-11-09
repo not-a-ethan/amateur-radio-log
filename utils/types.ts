@@ -11,6 +11,14 @@ export interface ContactsTable {
     userid: string
 };
 
+export interface EquipmentTable {
+    id: number,
+    category: string,
+    name: string,
+    quantity: number,
+    userid: string
+};
+
 export interface ProfileTable {
     userid: string,
     callsign: string,

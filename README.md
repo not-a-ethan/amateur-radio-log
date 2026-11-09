@@ -68,4 +68,12 @@ CREATE TABLE "repeaters" (
   "mode" text NOT NULL,
   "userid" text NOT NULL
 );
+
+CREATE TABLE "equipment" (
+  "id" integer PRIMARY KEY GENERATED ALWAYS AS IDENTITY (sequence name "equipment_id_seq"),
+  "category" text NOT NULL,
+  "name" text NOT NULL,
+  "quantity" integer NOT NULL,
+  "userid" text NOT NULL
+);
 ```
