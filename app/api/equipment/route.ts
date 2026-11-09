@@ -5,7 +5,6 @@ import { auth } from "@/utils/auth";
 import { sql } from "@/utils/sql";
 
 import { EquipmentTable } from "@/utils/types";
-import { DO_NOT_USE_OR_YOU_WILL_BE_FIRED_CALLBACK_REF_RETURN_VALUES, use } from "react";
 
 export async function GET(req: NextRequest): Promise<NextResponse> {
     const session = await auth.api.getSession({ headers: await headers() });
