@@ -4,12 +4,15 @@ import { Button, Form, Input, Label, Modal, Table, TextField, toast } from "@her
 
 import { EquipmentTable } from "@/utils/types";
 
-
-
 export function EquipmentRow(props: any) {
-    const item: EquipmentTable = props.equipment;
+    const name: string = props.name;
+    const id: number = props.itemId;
+    const amount: number = props.amount;
+    const category: string = props.category;
 
     function editEquipment(e: React.SyntheticEvent<HTMLFormElement>) {
+        e.preventDefault();
+        
         const formData = new FormData(e.currentTarget);
 
         const name: string|undefined|null = formData.get("name")?.toString();
@@ -49,10 +52,10 @@ export function EquipmentRow(props: any) {
         fetch("../api/equipment", {
             method: "PUT",
             body: JSON.stringify({
-                id: item.id,
-                category: category,
-                name: name,
-                amount: amount
+                "id": id,
+                "category": category,
+                "name": name,
+                "amount": amount
             })
         })
         .then(res => {
@@ -72,7 +75,12 @@ export function EquipmentRow(props: any) {
     };
 
     function deleteEquipment() {
-        fetch("../api/equipment")
+        fetch("../api/equipment", {
+            method: "DELETE",
+            body: JSON.stringify({
+                id: id
+            })
+        })
         .then(res => {
             if (!res.ok) {
                 throw new Error ("Response was not ok");
@@ -91,9 +99,9 @@ export function EquipmentRow(props: any) {
 
     return (
         <Table.Row>
-            <Table.Cell>{item.name}</Table.Cell>
-            <Table.Cell>{item.category}</Table.Cell>
-            <Table.Cell>{item.quantity}</Table.Cell>
+            <Table.Cell>{name}</Table.Cell>
+            <Table.Cell>{category}</Table.Cell>
+            <Table.Cell>{amount}</Table.Cell>
             <Table.Cell>
                 <Modal>
                     <Button>Edit</Button>
@@ -109,19 +117,19 @@ export function EquipmentRow(props: any) {
 
                                 <Modal.Body>
                                     <Form onSubmit={editEquipment}>
-                                        <TextField isRequired defaultValue={item.name}>
+                                        <TextField isRequired defaultValue={name}>
                                             <Label htmlFor="name">Item name:</Label>
                                         
                                             <Input type="text" name="name" id="name" />
                                         </TextField>
 
-                                        <TextField isRequired defaultValue={item.category}>
+                                        <TextField isRequired defaultValue={category}>
                                             <Label htmlFor="category">Item category:</Label>
 
                                             <Input type="text" name="category" id="category" />
                                         </TextField>
 
-                                        <TextField isRequired defaultValue={item.quantity.toString()}>
+                                        <TextField isRequired defaultValue={amount.toString()}>
                                             <Label htmlFor="amount">Amount:</Label>
 
                                             <Input type="number" name="amount" id="amount" />

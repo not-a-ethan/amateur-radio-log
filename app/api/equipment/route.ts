@@ -188,7 +188,7 @@ export async function PUT(req: NextRequest): Promise<NextResponse> {
 
     if (amount && !Number.isNaN(amount) && amount > 0) {
         try {
-            await sql`UPDATE equipment SET quanity=${amount} WHERE id=${id} AND userid=${userId};`;
+            await sql`UPDATE equipment SET quantity=${amount} WHERE id=${id} AND userid=${userId};`;
         } catch (e) {
             console.error(e);
 

@@ -52,6 +52,8 @@ export default function Page() {
     useEffect(getEquipment, []);
 
     function createEquipment(e: React.SyntheticEvent<HTMLFormElement>) {
+        e.preventDefault();
+
         const formData = new FormData(e.currentTarget);
 
         const name: string|undefined|null = formData.get("name")?.toString();
@@ -112,6 +114,8 @@ export default function Page() {
         });
     };
 
+    console.log(equipment)
+
     return (
         <span>
             <h1>Equipment</h1>
@@ -128,7 +132,7 @@ export default function Page() {
 
                         <Table.Body>
                             {equipment.map((item: EquipmentTable) => (
-                                <EquipmentRow item={item} />
+                                <EquipmentRow itemId={item.id} name={item.name} amount={item.quantity} category={item.category} key={item.id} />
                             ))}
                         </Table.Body>
                     </Table.Content>
@@ -144,7 +148,7 @@ export default function Page() {
                             <Modal.CloseTrigger />
 
                             <Modal.Header>
-                                <Modal.Heading>Edit Equipment</Modal.Heading>
+                                <Modal.Heading>Create Equipment</Modal.Heading>
                             </Modal.Header>
 
                             <Modal.Body>
@@ -167,7 +171,7 @@ export default function Page() {
                                         <Input type="number" name="amount" id="amount" />
                                     </TextField>
 
-                                    <Button type="submit">Edit Equipment</Button>
+                                    <Button type="submit">Create Equipment</Button>
                                 </Form>
                             </Modal.Body>
                         </Modal.Dialog>
